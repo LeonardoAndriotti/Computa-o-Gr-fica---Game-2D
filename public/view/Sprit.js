@@ -15,3 +15,5 @@ function Sprite(x,y,largura,altura){
 var bg = new Sprite(0,0,600,600);
 var boneco = new Sprite(0,0,60,102);
 var obstaculo = new Sprite(0,0,60,101);
+var start = new Sprite(0,0,418,176);
+var gameOver = new Sprite(0,0,358,247);

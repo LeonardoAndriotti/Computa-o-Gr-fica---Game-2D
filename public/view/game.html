@@ -4,6 +4,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<script src="Sprit.js"></script>
+	<script src="pulo.js"></script>
+	<script src="game-over.js"></script>
+	<script src="tema.js"></script>
 	<title>Japones Piruleta</title>
 	<link rel="stylesheet" href="">
 	<style>
@@ -72,6 +75,9 @@
 				if(this.qntPulos < maxPulos){
 					this.velocidade = - this.forcaDoPulo;
 					this.qntPulos++;
+
+					pulo.currentTime = 0.0;
+					pulo.play();
 				}
 
 			},
@@ -121,8 +127,14 @@
 					var obs = this._obs[i];
 
 					obs.x -= velocidade;
-					if(bloco.x < obs.x + obs.largura && bloco.x + bloco.largura >= obs.x && bloco.y + bloco.altura >= chao.y - obs.altura)
+					if(bloco.x < obs.x + obs.largura && bloco.x + bloco.largura >= obs.x && bloco.y + bloco.altura >= chao.y - obs.altura){
+                       
+                       game.currentTime = 0.0;
+				       game.play();
 						estadoAtual = estados.perdeu;
+
+					}
+
 
 					else if(obs.x == 0)
 						bloco.score++;
@@ -150,14 +162,23 @@
 		   };
 
 		function clique(event){
-			if(estadoAtual == estados.jogando)
+			if(estadoAtual == estados.jogando){
 				bloco.pula();
+				
+				tema.currentTime = 0.0;
+			    tema.play();
+			}
+			
 
 			else if(estadoAtual == estados.jogar){
 				estadoAtual = estados.jogando;
+				tema.currentTime = 0.0;
+			    tema.play();
 			}
 			else if(estadoAtual == estados.perdeu && bloco.y >= 2* ALTURA){
 				estadoAtual = estados.jogar;
+				
+
 				obstaculos.limpa();
 				bloco.reset();
 			}
@@ -185,6 +206,7 @@
 
 			estadoAtual = estados.jogar;
 
+
 			record = localStorage.getItem("record");
 			if(record == null)
 				record =0;
@@ -195,6 +217,7 @@
 			atualiza();
 			desenha();
 
+            
 			window.requestAnimationFrame(roda);
 		}
 		function atualiza(){
@@ -215,38 +238,42 @@
 			ctx.fillText(bloco.score, 30, 68);
 
 			if(estadoAtual == estados.jogar){
-				ctx.fillStyle = "green";
-				ctx.fillRect(LARGURA / 2 -50, ALTURA / 2 - 50, 100,100);
+				start.desenha(LARGURA / 2 -200, ALTURA / 2 - 100,"../_image/start.png") 
+				/*ctx.fillStyle = "green";
+				ctx.fillRect(LARGURA / 2 -50, ALTURA / 2 - 50, 100,100);*/
 			}
 			else if(estadoAtual == estados.perdeu){
-				ctx.fillStyle = "red";
-				ctx.fillRect(LARGURA / 2 - 50, ALTURA /2 - 50,100,100);
-
+				/*ctx.fillStyle = "red";*/
+				/*ctx.fillRect(LARGURA / 2 - 50, ALTURA /2 - 50,100,100);*/
+				
+				gameOver.desenha(LARGURA / 2 - 180, ALTURA /2 - 200,"../_image/gameOver.png");
+               
 				ctx.save();
 				ctx.translate(LARGURA / 2, ALTURA / 2);
 				ctx.fillStyle ="#fff";
 
 				if(bloco.score > record)
-					ctx.fillText("Novo record",-150,-65);
+					ctx.fillText("Novo record",-150,200);
 
 				else if(record < 10)
-					ctx.fillText("Record "+ record, -99, -65);
+					ctx.fillText("Record "+ record, -99, 200);
 
 				else if(record >=10 && record < 100)
-					ctx.fillText("Record "+ record, -112, -65);
+					ctx.fillText("Record "+ record, -112, 200);
 
 				else 
-					ctx.fillText("Record "+ record, -125, -65);
+					ctx.fillText("Record "+ record, -125, 200);
 
 				if(bloco.score < 10)
-					ctx.fillText(bloco.score, -13, 19);
+					ctx.fillText("Placar do Game " + bloco.score, -200, 100);
 
 				else if (bloco.score >= 10 && bloco.score < 100)
-					ctx.fillText(bloco.score, -26, 19);
+					ctx.fillText("Placar do Game " + bloco.score, -200, 100);
 				else
-					ctx.fillText(bloco.score, -39, 19);
+					ctx.fillText("Placar do Game " + bloco.score, -200, 100);
 
 				ctx.restore();
+
 			}
 			else if(estadoAtual == estados.jogando){
 				//desenhando obstaculos
