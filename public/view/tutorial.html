@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+	<style>
+	    a{
+	    	color: #fff;
+	    	font-family: 'Indie Flower', cursive;
+	    }
+	    a:hover{
+	    	color: #fff;
+	    	font-weight: bolder;
+	    	text-decoration: none;
+
+	    }
+		body{
+			background: #333;
+			color: #fff;
+			font-family: 'Indie Flower', cursive;
+		}
+		ul li{
+			list-style-type: none;
+			font-family: 'Indie Flower', cursive;
+
+		}
+		.seta{
+			width: 5%;
+			position: absolute;
+			top: 36%;
+		}
+		.personagens ul{
+			margin-top: 85px;
+		}
+		h2{   
+			position: absolute;
+			width: 10%;
+			font-size: 15px;
+			text-align: center;
+			top: 62%;
+			left: 33%;
+		}
+		.mouse{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+    <div class="col-xs-12">
+    	<ul>
+    		<li><a href="../index.html">Voltar</a></li>
+    		<li><a href="game.html" >Jogar</a></li>
+    	</ul>
+    </div>
+	<div class="container">
+		<div class="col-xs-12 mouse">
+			<img src="../_image/seta.png" alt="" class="seta">
+			<h2>Clique no mouse para Pular com o personagem</h2>
+			<img src="../_image/mouse.png" alt="">
+		</div>
+		<div class="col-xs-12 personagens">
+			<ul>
+				<li class="col-xs-4"> 
+					<div class="col-xs-4">
+						<img src="../_image/japadex.png" alt="">
+					</div>
+					<div class="col-xs-9">
+						<h5>Japadex</h5>
+						<article>
+							<span><strong>Quantidade Máxima de Pulos:</strong> 3</span><br>
+							<span><strong>Gravidade:</strong>1.0</span>
+						</article>	
+					</div>
+				</li>
+				<li class="col-xs-4">
+					<div class="col-xs-4">
+						<img src="../_image/ninja.png" alt="">
+					</div>
+					<div class="col-xs-9">
+						<h5>Ninja</h5>
+						<article>
+							<span><strong>Quantidade Máxima de Pulos:</strong> 5</span><br>
+							<span><strong>Gravidade:</strong>1.0</span>
+						</article>	
+					</div>
+
+				</li>
+				<li class="col-xs-4">
+					<div class="col-xs-4">
+						<img src="../_image/mago.png" alt="">
+					</div>
+
+					<div class="col-xs-9">
+						<h5>O Mago</h5>
+						<article>
+							<span><strong>Quantidade Máxima de Pulos:</strong> 3</span><br>
+							<span><strong>Gravidade:</strong>0.5</span>
+						</article>	
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+<script>
+	    var tema = new Audio();
+		tema.src = "../_song/Slipknot.mp3";
+		tema.volume = 0.8;
+		tema.load();
+		tema.currentTime = 0.0;
+		tema.play();
+</script>
+</body>
+</html>

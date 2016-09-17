@@ -12,8 +12,12 @@ function Sprite(x,y,largura,altura){
    }
 }
 
-var bg = new Sprite(0,0,600,600);
-var boneco = new Sprite(0,0,60,102);
-var obstaculo = new Sprite(0,0,60,101);
-var start = new Sprite(0,0,418,176);
-var gameOver = new Sprite(0,0,358,247);
+var bg = new Sprite(0,0,1600,600),
+ boneco = new Sprite(0,0,60,102),
+ obstaculo = new Sprite(0,0,60,101),
+ start = new Sprite(0,0,418,176),
+ gameOver = new Sprite(0,0,358,247),
+ ninja = new Sprite(0,0,102,102),
+ mago = new Sprite(0,0,68,102),
+ caminho = new Sprite(0,0,1000,50);
+/*var batman = new Sprite(0,0,102,116);*/

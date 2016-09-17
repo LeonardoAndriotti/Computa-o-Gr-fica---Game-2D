@@ -4,9 +4,11 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<script src="Sprit.js"></script>
+	<!-- <script src="SpritTwo.js"></script> -->
 	<script src="pulo.js"></script>
 	<script src="game-over.js"></script>
 	<script src="tema.js"></script>
+	<script src="time.js"></script>
 	<title>Japones Piruleta</title>
 	<link rel="stylesheet" href="">
 	<style>
@@ -26,7 +28,7 @@
 	//fillRect -> adiciona a posição que objeto vai ficar na tela
 	//Math.floor(20 * Math.random()) -> gera numeros aleatórios entre 0 e 20
 		// Variáveis de jogo
-		var canvas, ctx, ALTURA, LARGURA, frames = 0,maxPulos = 3,velocidade = 6,estadoAtual,record,img,imgPersonagem,
+		var canvas, ctx, ALTURA, LARGURA,maxPulos = 3,velocidade = 6,estadoAtual,record,condicaoOne = 10,condicaoTwo = 25,
 
 		estados = {
 			jogar:0,
@@ -34,15 +36,45 @@
 			perdeu:2
 		},
 
+		background = {
+			y:0,
+			x:0,
+
+			atualiza: function(){
+				this.x -= 0.5;
+				/*console.log(this.x);*/
+                if(this.x < -1400){
+                    this.x = 0;
+                }
+			},
+			desenha: function(){
+				/*ctx.fillStyle = this.cor;
+				ctx.fillRect(0,this.y,LARGURA,this.altura);*/
+				 bg.desenha(this.x,this.y,"../_image/back.png");
+				 bg.desenha(this.x + caminho.largura,this.y,"../_image/back.png");
+
+			}
+		}
+
 		chao = {
 			y: 550,
 			altura: 50,
-			cor:"#ffdf70",
+			x:0,
+			/*cor:"#ffdf70",*/
 
+            atualiza: function(){
+                this.x -= velocidade ;
+                if(this.x < -200){
+                    this.x = 0;
+                }
+            },
 
 			desenha: function(){
-				ctx.fillStyle = this.cor;
-				ctx.fillRect(0,this.y,LARGURA,this.altura);
+				/*ctx.fillStyle = this.cor;
+				ctx.fillRect(0,this.y,LARGURA,this.altura);*/
+				 caminho.desenha(this.x,this.y,"../_image/chao.png");
+				 caminho.desenha(this.x + caminho.largura,this.y,"../_image/back.png");
+
 			}
 		},
 
@@ -51,12 +83,13 @@
 			y: 0,
 			altura:boneco.altura,
 			largura:boneco.largura,
-			cor:"#ff4e4e",
-			gravidade:1.5,
+			/*cor:"#ff4e4e",*/
+			gravidade:1.0,
 			velocidade:0,
 			forcaDoPulo:15,
 			qntPulos:0,
 			score:0,
+			status: "personagemOne",
 
 			atualiza: function(){
 				this.velocidade += this.gravidade;
@@ -85,6 +118,9 @@
 			reset: function(){
 				this.velocidade=0;
 				this.y=0;
+				this.status ="personagemOne";
+				condicaoOne = 10;
+				condicaoTwo = 25;
 
 				if(this.score > record){
 					localStorage.setItem("record", this.score);
@@ -98,7 +134,41 @@
 				/*ctx.fillStyle = this.cor;
 				ctx.fillRect(this.x,this.y,this.largura,this.altura);*/
 
-				boneco.desenha(this.x,this.y,"../_image/japadex.png");
+
+             if(this.status == "personagemOne"){
+             	boneco.desenha(this.x,this.y,"../_image/japadex.png");
+              	this.gravidade = 1.0;
+              	maxPulos = 3;
+             }
+             else if(this.status == "personagemTwo"){
+             	ninja.desenha(this.x,this.y,"../_image/ninja.png");
+              	maxPulos = 5;
+              
+              }else{
+              	mago.desenha(this.x,this.y,"../_image/mago.png");
+			 	this.gravidade = 0.5;
+			 	maxPulos = 3;
+              }
+
+              if(this.score == 0){
+              	this.status = "personagemOne";
+              }
+              
+              else if(this.score == condicaoOne){
+              	this.status = "personagemTwo";
+              	 primeiraOnda.atualiza();
+              	 condicaoOne = condicaoOne * 2;
+              	 console.log(condicaoOne);
+              }
+               
+			  else if(this.score == condicaoTwo){
+			 	this.status = "personagemThree";
+			 	primeiraOnda.atualiza();
+			 	condicaoTwo = condicaoTwo *2;
+			 	console.log(condicaoTwo);
+			  }
+			 	
+
 			}
 		},
 
@@ -154,9 +224,7 @@
 				
 				for(var i = 0,tam = this._obs.length;i< tam; i++){
 					var obs = this._obs[i];
-					/*ctx.fillStyle = obs.cor;*/
 					obstaculo.desenha(obs.x,chao.y- obs.altura,"../_image/corretor.png");
-					/*ctx.fillRect(obs.x,chao.y - obs.altura, obs.largura,obs.altura);*/
 				}   
 		    }
 		   };
@@ -164,16 +232,12 @@
 		function clique(event){
 			if(estadoAtual == estados.jogando){
 				bloco.pula();
-				
-				tema.currentTime = 0.0;
-			    tema.play();
 			}
 			
 
 			else if(estadoAtual == estados.jogar){
 				estadoAtual = estados.jogando;
-				tema.currentTime = 0.0;
-			    tema.play();
+			
 			}
 			else if(estadoAtual == estados.perdeu && bloco.y >= 2* ALTURA){
 				estadoAtual = estados.jogar;
@@ -188,7 +252,7 @@
 			ALTURA = window.innerHeight;
 			LARGURA = window.innerWidth;
 
-			if(LARGURA >=500){
+			if(LARGURA >= 500){
 				LARGURA = 600;
 				ALTURA = 600;
 			}
@@ -221,18 +285,24 @@
 			window.requestAnimationFrame(roda);
 		}
 		function atualiza(){
-			frames ++;
-			bloco.atualiza();
+		/*	frames ++;
+*/
+			
 			if(estadoAtual == estados.jogando){
 				obstaculos.atualiza();
 			}	
+
+
+			background.atualiza();
+			chao.atualiza();
+			bloco.atualiza();
 		}
 
 		function desenha(){
-			/*ctx.fillStyle ="#50beff";
-			ctx.fillRect(0,0,LARGURA,ALTURA);*/
-			bg.desenha(0,0,"../_image/back.png");
 
+			background.desenha();
+
+			
 			ctx.fillStyle = "#fff";
 			ctx.font = "50px Arial";
 			ctx.fillText(bloco.score, 30, 68);

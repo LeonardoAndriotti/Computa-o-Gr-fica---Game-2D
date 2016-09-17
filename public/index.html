@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+	<script src="jquery.min.js" type="text/javascript" ></script>
+
+	<style>
+		.no-padding{
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+		ul li{
+			list-style-type: none;
+			text-align: center;
+			font-size: 40px;
+			font-family: 'Indie Flower', cursive;
+
+		}
+		a{
+			text-decoration: none;
+			color:#fff;
+		}
+
+        a:hover{
+        	color: #fff;
+        	font-weight: bold;
+        	text-decoration: none;
+        } 
+		.body img{
+			width: 1366px;
+			height: 642px;
+		}
+		nav{
+			position: absolute;
+			bottom: 0;
+			margin-left: 15px;
+		}
+		.titulo{
+			position: absolute;
+		    text-align: center;
+		    color: #fff;
+		    font-family: 'Indie Flower', cursive;
+		}
+		.titulo h2{
+			font-size: 100px
+		}
+		.titulo h5{
+			font-size: 50px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="col-xs-12 no-padding body">
+		<div class="col-xs-12 no-padding">
+			<img src="_image/index.jpg" alt="BackGround">
+		</div>
+		<div class="col-xs-12 titulo">
+			<h2>JAPONÊS PIRULETA</h2>
+			<h5>A FALENCIA GERAL</h5>
+		</div>
+		<div>
+			<nav>
+				<ul>
+					<li><a href="view/game.html" title="">JOGAR</a></li>
+					<li><a href="view/tutorial.html" title="">TUTORIAL</a></li>
+					<li><a href="view/credito.html" title="">CRÉDITOS</a></li>
+					<li><a href="canvas-tetris-master/index.html" title="">BÔNUS</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	</body>
+	<script>
+
+	
+
+//pega a largura da resolução da tela
+var width = screen.width;
+//pega a altura da resolução da tela
+var height = screen.height;
+
+		$(document).ready(function(){
+			function size(){
+				//função
+			}
+
+			size();
+		});
+
+		var tema = new Audio();
+		tema.src = "_song/DMX.mp3";
+		tema.volume = 0.8;
+		tema.load();
+		tema.currentTime = 0.0;
+		tema.play();
+	</script>
+	</html>
