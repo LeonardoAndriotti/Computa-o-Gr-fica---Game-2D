@@ -1,1 +1,3 @@
-# Computa-o-Gr-fica---Game-2D
+Japadex 
+
+GamePlay : https://japadex.herokuapp.com/
